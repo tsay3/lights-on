@@ -4,3 +4,13 @@
 .div.button.off {
   .color: #778877
 }
+.light {
+  background-color: #778877
+  display: display;
+  height: 25px;
+  width: 35px;
+  margin: 2px;
+}
+.row {
+  width: 120px;
+}
