@@ -1,26 +1,26 @@
-'use strict';
+
+const domContainer = document.querySelector('#react-root');
+const root = ReactDOM.createRoot(domContainer);
 
 const e = React.createElement;
 
-class LikeButton extends React.Component {
+class LightButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { liked: false };
+    this.state = { lit: false };
   }
 
   render() {
-    if (this.state.liked) {
+    if (this.state.lit) {
       return 'You liked this.';
     }
 
     return e(
       'button',
-      { onClick: () => this.setState({ liked: true }) },
+      { onClick: () => this.setState({ lit: true }) },
       'Like'
     );
   }
 }
 
-const domContainer = document.querySelector('#react-root');
-const root = ReactDOM.createRoot(domContainer);
 root.render(e(LikeButton));

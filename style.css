@@ -1,11 +1,10 @@
-.div.button.on {
-  .color: #11dd11
+.lit {
+  background-color: #11dd11
 }
-.div.button.off {
-  .color: #778877
+.unlit {
+  background-color: #778877
 }
 .light {
-  background-color: #778877
   display: display;
   height: 25px;
   width: 35px;
