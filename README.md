@@ -1,1 +1,1 @@
-Go to https://raw.githack.com/tsay3/lights-on/main/index.html to run.
+Go to https://tsay3.github.io/lights-on/index.html to run.
