@@ -41,10 +41,8 @@ function runGame() {
 			const btn = row.children[j];
 			btn.addEventListener("click", () => triggerLights(i, j));
 			if (lights[i][j]) {
-				console.log("Lighting " + i + ", " + j);
 				btn.classList.add("lit");
 			} else {
-				console.log("Not lighting " + i + ", " + j);
 				btn.classList.add("unlit");
 			}
 		}
