@@ -17,6 +17,26 @@ function triggerLights(i, j) {
 	if (j < board_width-1) {
 		toggleLight(i, j+1);
 	}
+	if (victoryIsMet()) {
+		victory = true;
+		alert('Congratulations!');
+	}
+}
+
+var victory = false;
+
+function victoryIsMet() {
+	if (victory) {
+		return false;
+	}
+	for (var i = 0; i < lights.length; i++) {
+		const row = lights[i];
+		for (var j = 0; j < row.length; j++) {
+			const elem = row[j];
+			if (elem == 1) return false;
+		}
+	}
+	return true;
 }
 
 function toggleLight(i, j) {
