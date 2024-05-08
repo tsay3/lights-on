@@ -1,6 +1,10 @@
-board_width = 3;
-
-var lights = [[0, 0, 0], [0, 1, 0], [0, 0, 0]];
+var lights = [[0, 1, 0, 1, 0],
+              [1, 0, 1, 0, 1],
+			  [1, 0, 0, 0, 1],
+			  [0, 1, 0, 1, 0],
+			  [0, 0, 1, 0, 0]];
+			  
+const board_width = lights.length;
 
 function triggerLights(i, j) {
 	console.log("clicked " + i + ", " + j);
@@ -55,9 +59,9 @@ function toggleLight(i, j) {
 
 function runGame() {
 	var light_root = document.getElementById('lights');
-	for (let i = 0; i < board_width; i++) {
+	for (let i = 0; i < light_root.childElementCount; i++) {
 		const row = light_root.children[i];
-		for (let j = 0; j < board_width; j++) {
+		for (let j = 0; j < row.childElementCount; j++) {
 			const btn = row.children[j];
 			btn.addEventListener("click", () => triggerLights(i, j));
 			if (lights[i][j]) {
