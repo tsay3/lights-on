@@ -3,11 +3,21 @@ var puzzles = [[[0, 1, 0, 1, 0],
 			    [1, 0, 0, 0, 1],
 			    [0, 1, 0, 1, 0],
 			    [0, 0, 1, 0, 0]],
+			   [[1, 0, 0, 0, 1],
+                [0, 1, 0, 1, 0],
+			    [0, 0, 1, 0, 0],
+			    [0, 0, 1, 0, 0],
+			    [0, 0, 0, 0, 0]],
 			   [[0, 1, 0, 0, 0],
                 [1, 0, 1, 0, 1],
 			    [1, 0, 1, 1, 0],
 			    [0, 1, 1, 0, 1],
-			    [0, 0, 1, 0, 1]]];
+			    [0, 0, 1, 0, 1]],
+			   [[0, 0, 0, 0, 1],
+                [0, 1, 0, 1, 1],
+			    [1, 1, 0, 0, 0],
+			    [0, 0, 0, 1, 0],
+			    [0, 0, 1, 1, 0]]];
 
 var lights = [];
 var current_puzzle = 0;
@@ -77,6 +87,11 @@ function runGame() {
 	resetPuzzle();
 }
 
+function nextPuzzle() {
+	current_puzzle = (current_puzzle + 1) % (puzzles.length);
+	resetPuzzle();
+}
+
 function resetPuzzle() {
 	var light_root = document.getElementById('lights');
 	let p = puzzles[current_puzzle];
@@ -95,4 +110,5 @@ function resetPuzzle() {
 			}
 		}
 	}
+	victory = false;
 }
