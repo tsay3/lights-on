@@ -1,4 +1,9 @@
-var puzzles = [[[0, 1, 0, 1, 0],
+var puzzles = [[[0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+			    [0, 0, 1, 0, 0],
+			    [0, 0, 0, 0, 0],
+			    [0, 0, 0, 0, 0]],
+			   [[0, 1, 0, 1, 0],
                 [1, 0, 1, 0, 1],
 			    [1, 0, 0, 0, 1],
 			    [0, 1, 0, 1, 0],
@@ -18,6 +23,14 @@ var puzzles = [[[0, 1, 0, 1, 0],
 			    [1, 1, 0, 0, 0],
 			    [0, 0, 0, 1, 0],
 			    [0, 0, 1, 1, 0]]];
+				
+var indicators = [[0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0],
+			      [0, 0, 0, 0, 0],
+			      [0, 0, 0, 0, 0],
+			      [0, 0, 0, 0, 0]];
+const INDICATOR_ON = "🟡";
+const INDICATOR_OFF = "&#160;";
 
 var lights = [];
 var current_puzzle = 0;
@@ -26,6 +39,7 @@ const board_width = puzzles[0].length;
 function triggerLights(i, j) {
 	console.log("clicked " + i + ", " + j);
 	toggleLight(i, j);
+	markLight(i, j);
 	if (i > 0) {
 		toggleLight(i-1, j);
 	}
@@ -74,6 +88,19 @@ function toggleLight(i, j) {
 	}
 }
 
+function markLight(i, j) {
+	var light_root = document.getElementById('lights');
+	var row = light_root.children[i];
+	var btn = row.children[j];
+	indicators[i][j] = 1 - indicators[i][j];
+	var indicator_box = document.getElementById('indicator_check');
+	if (indicator_box.checked && indicators[i][j] == 1) {
+		btn.innerHTML = INDICATOR_ON;
+	} else {
+		btn.innerHTML = INDICATOR_OFF;
+	}
+}
+
 function runGame() {
 	var light_root = document.getElementById('lights');
 	for (let i = 0; i < light_root.childElementCount; i++) {
@@ -87,6 +114,21 @@ function runGame() {
 	resetPuzzle();
 }
 
+function toggleIndicators() {
+	var light_root = document.getElementById('lights');
+	var indicator_box = document.getElementById('indicator_check');
+	for (let i = 0; i < indicators.length; i++) {
+		for (let j = 0; j < indicators.length; j++) {
+			let btn = light_root.children[i].children[j];
+			if (indicator_box.checked && indicators[i][j] == 1) {
+				btn.innerHTML = INDICATOR_ON;
+			} else {
+				btn.innerHTML = INDICATOR_OFF;
+			}
+		}
+	}
+}
+
 function nextPuzzle() {
 	current_puzzle = (current_puzzle + 1) % (puzzles.length);
 	resetPuzzle();
@@ -98,9 +140,8 @@ function resetPuzzle() {
 	lights = [];
 	for (let i = 0; i < p.length; i++) {
 		lights[i] = ([...p[i]]);
-		var row = light_root.children[i];
 		for (let j = 0; j < p[i].length; j++) {
-			var btn = row.children[j];
+			let btn = light_root.children[i].children[j];
 			if (lights[i][j]) {
 				btn.classList.remove("unlit");
 				btn.classList.add("lit");
@@ -108,6 +149,8 @@ function resetPuzzle() {
 				btn.classList.remove("lit");
 				btn.classList.add("unlit");
 			}
+			indicators[i][j] = 0;
+			btn.innerHTML = INDICATOR_OFF;
 		}
 	}
 	victory = false;
