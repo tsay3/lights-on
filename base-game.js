@@ -29,7 +29,7 @@ var indicators = [[0, 0, 0, 0, 0],
 			      [0, 0, 0, 0, 0],
 			      [0, 0, 0, 0, 0],
 			      [0, 0, 0, 0, 0]];
-const INDICATOR_ON = "🟡";
+const INDICATOR_ON = "&#128993;";
 const INDICATOR_OFF = "&#160;";
 
 var lights = [];
