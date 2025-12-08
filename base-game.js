@@ -98,6 +98,18 @@ function victoryIsMet() {
     return true;
 }
 
+function isSolvable(puzzle) {
+	let sum1 = 0;
+	let sum2 = 0;
+	for (let i = 0; i < board_width; i++) {
+		for (let j = 0; j < board_width; j++) {
+			sum1 += quietPatterns[0][i][j] * puzzle[i][j];
+			sum2 += quietPatterns[1][i][j] * puzzle[i][j];
+		}
+	}
+	return ((sum1 % 2 == 0) && (sum2 % 2 == 0));
+}
+
 function toggleLight(i, j) {
     lights[i][j] = 1 - lights[i][j];
     var light_root = document.getElementById('lights');
@@ -164,16 +176,27 @@ function showSolution() {
 	showMarkers(solution);
 }
 
+function previousPuzzle() {
+    current_puzzle = (current_puzzle + puzzles.length - 1) % (puzzles.length);
+	while (!isSolvable(puzzles[current_puzzle])) {
+		alert("ERROR: Puzzle is unsolvable");
+		current_puzzle = (current_puzzle - 1) % (puzzles.length);
+	}
+    resetPuzzle();
+}
+
 function nextPuzzle() {
     current_puzzle = (current_puzzle + 1) % (puzzles.length);
+	while (!isSolvable(puzzles[current_puzzle])) {
+		alert("ERROR: Puzzle is unsolvable");
+		current_puzzle = (current_puzzle + 1) % (puzzles.length);
+	}
     resetPuzzle();
 }
 
 function resetPuzzle() {
     var light_root = document.getElementById('lights');
     let p = puzzles[current_puzzle];
-	console.log("puzzle " + current_puzzle + ":");
-	console.log(p);
     for (let i = 0; i < board_width; i++) {
         for (let j = 0; j < board_width; j++) {
 			lights[i][j] = p[i][j];
@@ -229,7 +252,6 @@ function getOptimalSolution(puzzleRef) {
 				if (col <= 3) puzzle[row+1][col+1] = 1 - puzzle[row+1][col+1];
 			}
         }
-		console.log("row " + (row+1) + ": " + solution[row+1].toString());
     }
 	solution[0] = [0, 0, 0, 0, 0];
 	// 2) for the last row, check the bottom left lights
@@ -262,7 +284,6 @@ function getOptimalSolution(puzzleRef) {
 		puzzle[1][3] = 1 - puzzle[1][3];
 	}
 	// 3) Repeat step 1. The game will be solved
-	console.log("row " + (0) + ": " + solution[0].toString());
     for (let row = 0; row < 4; row++) {
         for (let col = 0; col < 5; col++) {
 			if (puzzle[row][col] == 1) {
@@ -275,7 +296,6 @@ function getOptimalSolution(puzzleRef) {
 				if (col <= 3) puzzle[row+1][col+1] = 1 - puzzle[row+1][col+1];
 			}
         }
-		console.log("row " + (row+1) + ": " + solution[row+1].toString());
     }
 	// To optimize:
 	// XOR the solution with each of the "quiet patterns", and return the result with the smallest sum
@@ -292,11 +312,8 @@ function getOptimalSolution(puzzleRef) {
 			solutionCounts[3] += solution[i][j];
 		}
 	}
-	console.log("solution:");
-	console.log(solution);
 	// find the index of the smallest result in solutionCounts
 	var min = solutionCounts.indexOf(Math.min.apply(Math, solutionCounts));
-	console.log("min = " + min);
 	if (min == 3) return solution;
 	return alternatives[min];
 }

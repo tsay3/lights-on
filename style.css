@@ -1,19 +1,28 @@
 #game {
   background: rgb(229, 225, 225);
   width: min-content;
+  text-align: center;
 }
 #lights {
   padding-top: 10px;
 }
+#root {
+  text-align: left;
+}
 .header {
   flex: auto;
+  /* text-align: center; */
 }
 .controls {
   background: rgb(240, 238, 240);
-  display: block;
-  justify-content: center;
-  margin-top: 10px;
-  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin:auto;
+  padding-bottom: 10px;
+}
+.marker_selection {
+  text-align: left;
 }
 .lit {
   background-color: #11dd11
@@ -30,5 +39,4 @@
 }
 .row {
   width: 300px;
-  margin-left: 10px;
 }

@@ -5,7 +5,7 @@
  </head>
  <body onload="runGame()">
   <div id="root">
-  <h1 class="header">Lights Out</h1>
+    <h1 class="header">Lights Out</h1>
     <div id="game">
       <div id="lights">
         <div class="row" id="row0">
@@ -46,18 +46,21 @@
       </div>
 	    <div class="controls">
         <div class="buttons">
+          <button type="button" onclick="previousPuzzle()">Prev</button>
           <button type="button" onclick="resetPuzzle()">Reset</button>
           <button type="button" onclick="nextPuzzle()">Next</button>
         </div>
         <fieldset>
           <legend>Show markers</legend>
           <div class="marker_selection">
-            <label for="no_markers_btn">None</label>
             <input type="radio" onclick="hideMarkers()" name="markers" id="no_markers_btn" checked />
-            <label for="clicked_btn">Clicked</label>
+            <label for="no_markers_btn">None</label>
+            <br/>
             <input type="radio" onclick="showClicked()" name="markers" id="clicked_btn" />
-            <label for="solution_btn">Solution</label>
+            <label for="clicked_btn">Clicked</label>
+            <br/>
             <input type="radio" onclick="showSolution()" name="markers" id="solution_btn" />
+            <label for="solution_btn">Solution</label>
           </div>
         </fieldset>
 	    </div>
